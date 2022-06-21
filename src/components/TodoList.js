@@ -10,7 +10,7 @@ export default class TodoList extends Component {
         <h3 className="text-capitalize text-center">Todo list</h3>
         {
           items.map(item => {
-            return <TodoItem key={item.id} title={item.title} handleDelet={()=> handleDelet(item.id)} handelEdit={()=> handelEdit(item.id)}/>;
+            return <TodoItem key={item.id} title={item.title} handleDelet={()=> handleDelet(item.id)} handelEdit={(e)=> handelEdit(e,item.id)}/>;
           })
         }
         <button type="button" className="btn btn-danger btn-block text-capitalize mt-5" onClick={clearList}>clear list</button>

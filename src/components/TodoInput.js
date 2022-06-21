@@ -13,6 +13,7 @@ export default class TodoInput extends Component {
               </div>
             </div>
             <input 
+              id='inputItem'
               type="text" 
               className="form-control text-capitalize" 
               placeholder="Add a todo item"

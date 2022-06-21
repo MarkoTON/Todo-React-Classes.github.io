@@ -14,24 +14,33 @@ class App extends Component {
     editItem:false
   }
 
+  // itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+
   handleChange = (e) => {
+    console.log("Coming from state:");
+    console.log(this.state.item);
     this.setState({
       item:e.target.value
     });
-    // console.log(this.state.item)
-    // console.log(e)
   };
 
   handleSubmit = (e) => {
     e.preventDefault()
     // console.log("metallica");
+    // console.log(e.target);
+    if(this.state.item === ''){
+      alert("Please add item.")
+      return
+    }
+
     const newItem = {
       id: this.state.id,
       title: this.state.item,
       // editItem: this.state.editItem
     }
+    
     // console.log(this.state.items);
-    // console.log(newItem);
+    console.log(newItem);
     const updateItems = [...this.state.items,newItem];
 
     this.setState({
@@ -40,9 +49,14 @@ class App extends Component {
       id:uuid(),
       editItem: false
     })
+
+    // console.log(this.itemsArray);
+    // console.log(this.state.items);
+    // this.itemsArray = this.state.items
   }
 
   clearList = () => {
+    prompt("test")
     this.setState({
       items:[]
     })
@@ -58,7 +72,9 @@ class App extends Component {
     })
   }
 
-  handelEdit = (id) => {
+  handelEdit = (e,id) => {
+    // console.log(e);
+    // console.log(id);
     const filteredItems = this.state.items.filter(item => {
       return item.id !== id
     });
@@ -71,12 +87,40 @@ class App extends Component {
     // console.log(selectedItem[0])
     // console.log(selectedItem[0].title)
 
+    let input = document.getElementById('inputItem');
+    // console.log(input);
+    input.focus()
+
     this.setState({
       items: filteredItems,
       item: selectedItem[0].title,
       editItem: true,
       id: id
     });
+
+  }
+
+  // Lifecycle hooks
+  componentDidMount() {
+    console.log("Behavior before the component is added to the DOM ------------ componentDidMount");
+
+    // console.log(this.state);
+
+    // localStorage.setItem('items', JSON.stringify(this.state.items));
+  }
+
+  componentDidUpdate() {
+    console.log("Behavior when the component receives new state or props. ------------ componentDidUpdate");
+  }
+
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.foo !== prevProps.foo) {
+  //   console.log("Behavior when the value of 'foo' changes.");
+  //   }
+  // }
+
+  componentWillUnmount() {
+    console.log("Behavior right before the component is removed from the DOM.");
   }
 
   render() {
